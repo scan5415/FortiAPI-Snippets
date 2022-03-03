@@ -5,7 +5,7 @@ import csv
 import os
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-base_url = "https://62.2.122.4:10000/api/v2/"
+base_url = "https://FGT-IP/api/v2/"
 url_login= base_url + "authentication"
 
 csv_header = ['port','untagged','tagged']
@@ -14,7 +14,7 @@ csv_path = os.path.dirname(__file__)
 sess = requests.session()
 
 #Login request
-payload = {'username' : 'fwadmin', 'secretkey' : 'R1kQXAGsxHCL'}
+payload = {'username' : 'admin', 'secretkey' : 'changeit'}
 res = sess.post(url_login, json=payload, verify=False )
 
 # Read CSRFTOKEN and add it to the Header
