@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: install rsync
-        run: apt-get install -y rsync
+        run: sudo apt-get install -y rsync
       - uses: actions/checkout@v2
         with:
           path: 'github'
