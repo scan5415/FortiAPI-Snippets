@@ -5,7 +5,7 @@ import csv
 import os
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-base_url = "https://fortiems.shl-group.com/api/v1/"
+base_url = "https://**IP/FQDN**/api/v1/"
 url_login= base_url + "auth/signin"
 
 csv_header = ['Endpoint Name','Username','IP Address','Policy','FortiClient installed','Is registered on FortiEMS','Is excluded in FortiEMS']
