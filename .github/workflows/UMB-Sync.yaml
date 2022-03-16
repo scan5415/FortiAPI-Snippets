@@ -19,6 +19,7 @@ jobs:
         id: extract_branch
       - name: checkout bitpucket
         run: |
+          mkdir bitbucket
           cd bitbucket/
           git init
           git config --global user.name "$GITHUB_ACTOR"
