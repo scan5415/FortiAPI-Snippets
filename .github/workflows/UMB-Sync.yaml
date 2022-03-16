@@ -13,6 +13,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: 'github'
+      - name: Checkout from Bitpucket
+        run: |
+          mkdir bitbucket
+          cd bitbucket
+          git clone https://andreas.scherer%40umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git
+          cd ..
       - name: Copy files
         run: rsync -auvh --exclude '.git' github/ bitbucket/
       - name: commit
