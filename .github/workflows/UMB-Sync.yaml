@@ -17,18 +17,18 @@ jobs:
         run: |
           mkdir bitbucket
           cd bitbucket
-          git clone ${{ secrets.BITBUCKET_URL }}
+          git init
+          git config --global user.name "$GITHUB_ACTOR"
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git remote add origin ${{ secrets.BITBUCKET_URL }}
+          git checkout origin/master
           cd ..
       - name: Copy files
         run: rsync -auvh --exclude '.git' github/ bitbucket/
       - name: commit
         run: |
           cd bitbucket/
-          git init
-          git config --global user.name "$GITHUB_ACTOR"
-          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+         
           git add --all
           git commit -m "Update from GitHub"
-          git remote add origin ${{ secrets.BITBUCKET_URL }}
-          git pull origin master
           git push -u origin HEAD:master
