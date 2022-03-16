@@ -27,7 +27,7 @@ jobs:
           git remote add origin https://andreas.scherer@umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git/master
           cd ..
       - name: Copy files
-        run: rsync -auvh github/ bitbucket/
+        run: rsync -auvh --exclude '.git' github/ bitbucket/
       - name: commit
         run: |
           cd bitbucket/
