@@ -29,7 +29,7 @@ jobs:
       - name: commit
         run: |
           cd bitbucket/
-         
+          cat test
           git add --all
           git commit -m "Update from GitHub"
           git push -u origin HEAD:master
