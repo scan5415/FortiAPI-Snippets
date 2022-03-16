@@ -17,7 +17,7 @@ jobs:
         run: |
           mkdir bitbucket
           cd bitbucket
-          git clone ${{ secret.BITBUCKET_URL }}
+          git clone ${{ secrets.BITBUCKET_URL }}
           cd ..
       - name: Copy files
         run: rsync -auvh --exclude '.git' github/ bitbucket/
