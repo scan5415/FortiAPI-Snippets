@@ -24,8 +24,10 @@ jobs:
           git fetch
           git checkout master
           cd ..
+          cd github
+          cat test
       - name: Copy files
-        run: rsync -auvh --exclude '.git' github/ bitbucket/
+        run: rsync -avh --exclude '.git' github/ bitbucket/
       - name: commit
         run: |
           cd bitbucket/
