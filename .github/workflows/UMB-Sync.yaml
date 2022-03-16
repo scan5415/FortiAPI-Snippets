@@ -2,7 +2,7 @@ name: Sync Bitbucket
 on:
   push:
     branches:
-      - "*"
+      - "master"
 
 jobs:
   sync:
@@ -29,6 +29,6 @@ jobs:
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add --all
           git commit -m "Update from GitHub"
-          git remote add origin https://andreas.scherer%40umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git
-          git pull
+          git remote add origin ${{ secrets.BITBUCKET_URL }}
+          git pull origin master
           git push -u origin HEAD:master
