@@ -21,7 +21,8 @@ jobs:
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git remote add origin ${{ secrets.BITBUCKET_URL }}
-          git checkout origin/master
+          git fetch
+          git checkout master
           cd ..
       - name: Copy files
         run: rsync -auvh --exclude '.git' github/ bitbucket/
