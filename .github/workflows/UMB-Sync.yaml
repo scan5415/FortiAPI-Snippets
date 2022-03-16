@@ -15,7 +15,7 @@ jobs:
           path: 'github'
       - uses: actions/checkout@v3
         with:
-          repository: ${{ secrets.BITBUCKET_URL }}
+          repository: https://andreas.scherer@umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git
           path: 'bitbucket'
       - name: Copy files
         run: rsync -auvh github/ bitbucket/
