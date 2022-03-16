@@ -20,7 +20,7 @@ jobs:
           git init
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git remote add origin "https://andreas.scherer%40umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git"
+          git remote add origin https://andreas.scherer%40umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git/master
           get fetch
           get pull
           ls -l
