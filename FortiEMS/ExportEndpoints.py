@@ -4,7 +4,6 @@ import urllib3
 import csv
 import os
 
-
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 base_url = "https://fortiems.shl-group.com/api/v1/"
 url_login= base_url + "auth/signin"
