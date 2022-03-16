@@ -17,7 +17,7 @@ jobs:
         run: |
           mkdir bitbucket
           cd bitbucket
-          git clone https://andreas.scherer%40umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git
+          git clone ${{ secret.BITBUCKET_URL }}
           cd ..
       - name: Copy files
         run: rsync -auvh --exclude '.git' github/ bitbucket/
@@ -27,8 +27,8 @@ jobs:
           git init
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git pull
           git add --all
           git commit -m "Update from GitHub"
           git remote add origin https://andreas.scherer%40umb.ch:OTU5MTQ3MDU0NTU1OmFWzE8yAF6cuOByVSHgvbQn60AN@git.umb.cloud/scm/tne/fortiapi-snippets.git
+          git pull
           git push -u origin HEAD:master
