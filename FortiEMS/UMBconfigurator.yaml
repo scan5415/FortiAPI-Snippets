@@ -1,0 +1,140 @@
+# FortiEMS Default UMB Configuration
+profiles:
+  vpn:
+  - name: "UMB_VPN_disabled"
+    display: True
+    enabled: False
+    json: {}
+  - name: "UMB_VPN_default"
+    display: True
+    enabled: True
+    json:
+      sslvpn:
+      options:
+        enabled: 1
+        dnscache_service_control: 0
+        prefer_sslvpn_dns: 1
+        disallow_invalid_server_certificate: 0
+        warn_invalid_server_certificate: 1
+        no_dns_registration: 0
+        connections:
+  #     - name: "<Connection Name>"
+  #       description: "<Description>"
+  #       server: "<Server>"
+  #       single_user_mode: 0
+  #       sso_enabled: 0 #Change to 1 if you want use SAML
+  #       use_external_browser: 1 #If you use FortiOS < 7.0 change to 0
+  #       warn_invalid_server_certificate: 1
+  #       machine: 0 #Change to 1 if you want to use Maschine Tunnel
+  #       dual_stack: 0
+  #       keep_running: 0
+  #       ui:
+  #         show_remember_password: 0
+  #         show_alwaysup: 0
+  #         show_autoconnect: 0
+  #         save_username: 1
+  #       allow_standard_user_use_system_cert: 1
+  #       prompt_certificate: 0 # Change to 1 if you want to use Cert based authentication
+        ipsecvpn:
+          options:
+            enabled: 1
+            use_win_current_user_cert: 1
+            use_win_local_computer_cert: 1
+            beep_if_error: 0
+            usewincert: 1
+            uselocalcert: 0
+            usesmcardcert: 0
+            block_ipv6: 1
+            enable_udp_checksum: 0
+            disable_default_route: 0
+            show_auth_cert_only: 0
+            check_for_cert_private_key: 0
+            enhanced_key_usage_mandatory: 0
+            no_dns_registration: 0
+        options:
+          allow_personal_vpns: 1
+          disable_connect_disconnect: 0
+          show_vpn_before_logon: 0
+          use_legacy_vpn_before_logon: 0
+          keep_running_max_tries: 0
+          minimize_window_on_connect: 1
+          use_windows_credentials: 0
+          show_negotiation_wnd: 0
+          suppress_vpn_notification: 0
+          secure_remote_access: 0
+          secure_remote_access: 0
+          on_os_start_connect: ""
+          on_os_start_connect_has_priority: 0
+  ztna:
+  - name: "UMB_ZTNA_disabled"
+    display: False
+    enabled: False
+    json: {}
+  - name: "UMB_ZTNA_default"
+    display: True
+    enabled: True
+    json: {}
+  web:
+  - name: "UMB_WEB_disabled"
+    display: False
+    enabled: False
+    json: {}
+  - name: "UMB_WEB_default"
+    display: True
+    enabled: True
+    json: {}
+  vulnerability:
+  - name: "UMB_VULN_disabled"
+    display: False
+    enabled: False
+    json: {}
+  antivirus:
+  - name: "UMB_MW_disabled"
+    display: False
+    enabled: False
+    json: {}
+  sandbox:
+  - name: "UMB_SB_disabled"
+    display: False
+    enabled: False
+    json: {}
+  clientSettings:
+  - name: "UMB_SYS_default"
+    display: True
+    enabled: True
+    json:
+      ui:
+        allow_shutdown_when_registered: 0
+        show_host_tag: 1
+        password: "<DisablePassword>"
+        default_tab: COMP
+      log_settings:
+        log_events: antiexploit,antiransomware,av,cloudscan,endpoint,firewall,fssoma,ipsecvpn,sandboxing,sslvpn,update,vuln,webfilter,ztna
+ztna:
+  tags:
+    - name: "ZTNA_AntiVirusON"
+    - name: "ZTNA_BitlockerON"
+    - name: "ZTNA_DefenderON"
+    - name: "ZTNA_DomainJoined"
+    - name: "ZTNA_EMSconnected"
+    - name: "ZTNA_Off-Fabric"
+    - name: "ZTNA_On-Fabric"
+    - name: "ZTNA_WinFirewallON"
+  rules:
+    - name: "ZTNA_RULE_AntiVirus11"
+      status: True
+      use_custom_logic: False
+      tag: 1
+      rules:
+        - id: 1
+          os: 1
+          type: 2
+          negative: False
+          content: "AV Software is installed and running"
+          updates: 0
+        - id: 2
+          os: 1
+          type: 2
+          negative: False
+          content: "AV Signature is up-to-date"
+          updates: 0

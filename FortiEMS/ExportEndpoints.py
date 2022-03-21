@@ -5,7 +5,7 @@ import csv
 import os
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-base_url = "https://fortiems.shl-group.com/api/v1/"
+base_url = "https://<fortiemsURL>/api/v1/"
 url_login= base_url + "auth/signin"
 
 csv_header = ['Endpoint Name','Username','IP Address','Policy','FortiClient installed','Is registered on FortiEMS','Is excluded in FortiEMS']
@@ -21,7 +21,7 @@ csv_filename = "\FortiEMS-EndpointsExport_%s-%s.csv"%(endpoints_start,endpoints_
 sess = requests.session()
 
 #Login request
-payload = {'name' : 'admin', 'password' : '0ZBiRA9HsTamagxHKQif5RgBsK6CLnRlhmzFvZbZJ0G8fs2oGGp5TAK6Emu2DDoE'}
+payload = {'name' : '<username>', 'password' : '<passsword>'}
 res = sess.post(url_login, json=payload, verify=False )
 
 print(res.json()['result']['message'])
