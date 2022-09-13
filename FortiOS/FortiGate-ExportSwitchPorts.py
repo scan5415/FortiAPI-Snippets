@@ -5,7 +5,7 @@ import csv
 import os
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-base_url = "https://FGT-IP/api/v2/"
+base_url = "https://<IP>:<AdminPort>/api/v2/"
 url_login= base_url + "authentication"
 
 csv_header = ['port','untagged','tagged']
@@ -36,5 +36,9 @@ for switch in resp_dict['results']:
         writer.writerow(csv_header)
 
         for port in switch['ports']:
-            port = [port['port-name'], port['vlan'], port['allowed-vlans']]
+            vlans = port['allowed-vlans']
+            if(port['allowed-vlans-all'] == 'enable'):
+                vlans = "All"
+
+            port = [port['port-name'], port['vlan'],vlans]
             writer.writerow(port)
