@@ -1,0 +1,71 @@
+[
+  {
+    "vdom": "Internal",
+    "name": "EU1MGM01UMB to EU1DOXISDB1",
+    "desc": "20220922/scy - Access fom EU1MGM01UMB to EU1DOXISDB1",
+    "src_int": "Z_LAN",
+    "dst_int": "Z_LAN",
+    "dst": [{
+      "ip": "10.41.5.201",
+      "desc": "EU1DOXISDB1"
+    }],
+    "src": [{
+      "ip": "10.41.4.203",
+      "desc": "EU1MGM01UMB"
+    }],
+    "ports": [
+      "tcp_1433"
+    ],
+    "after_policy": 111,
+    "logtraffic": "all",
+    "nat": "disable"
+  },
+  {
+    "vdom": "Internal",
+    "name": "AebiHQ to CHBDNTA24",
+    "desc": "20220922/scy - Access fom AebiHQ to CHBDNTA24",
+    "src": [{
+      "ip": "10.0.0.0/8",
+      "desc": ""
+    }],
+    "dst": [{
+      "ip": "10.41.4.26",
+      "desc": "CHBDNTA24"
+    }],
+    "ports": [
+      "tcp_80",
+      "tcp_135",
+      "tcp_139",
+      "tcp_445",
+      "udp_137",
+      "udp_138",
+      "tcp_3010",
+      "Aebi_DefaultPorts"
+    ],
+    "after_policy": 111,
+    "logtraffic": "all",
+    "nat": "disable"
+  },
+
+  {
+    "vdom": "Internal",
+    "name": "CHBDBC01 to AebiHQ",
+    "desc": "20220922/scy - Access fom CHBDBC01 to AebiHQ",
+    "dst": [{
+      "ip": "10.0.0.0/8",
+      "desc": ""
+    }],
+    "src": [{
+      "ip": "10.41.5.34",
+      "desc": "CHBDBC01"
+    }],
+    "ports": [
+      "tcp_3300",
+      "tcp_3200",
+      "tcp_445"
+    ],
+    "after_policy": 117,
+    "logtraffic": "all",
+    "nat": "disable"
+  }
+]
