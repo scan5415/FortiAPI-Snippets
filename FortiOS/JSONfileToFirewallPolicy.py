@@ -26,7 +26,7 @@ __email__ = "ofee42@gmail.com"
 __license__ = "GPLv3"
 __maintainer__ = "developer"
 __status__ = "Development"
-__version__ = "0.0.1"
+__version__ = "0.2"
 
 ####################
 # Importer
@@ -58,7 +58,12 @@ def create_objects(json_file, access_token):
         for port in rule['ports']:
             fgt_create_service(port, rule['vdom'], access_token)
 
-        fgt_create_policy(rule, rule['vdom'], access_token)
+        rule_id = fgt_create_policy(rule, rule['vdom'], access_token)
+
+        # Check if new Policy has to moved
+        if isinstance(rule['after_policy'], int) or isinstance(rule['before_policy'], int):
+            # Move after
+            fgt_move_policy(rule, rule_id,  access_token)
 
 def import_json():
     # Open JSON File from same folder
@@ -66,6 +71,27 @@ def import_json():
         data = json.load(json_file)
 
     return data
+
+
+def fgt_move_policy(rule, rule_id, access_token):
+    move_url = ""
+    # If "after_policy" is set, move Policy
+    if isinstance(rule['after_policy'], int):
+        move_url = "cmdb/firewall/policy/{0}?vdom={1}&action=move&after={2}&access_token={3}".format(rule_id, rule['vdom'], rule['after_policy'], access_token)
+
+    if isinstance(rule['before_policy'], int):
+        move_url = "cmdb/firewall/policy/{0}?vdom={1}&action=move&before={2}&access_token={3}".format(rule_id, rule['vdom'], rule['before_policy'], access_token)
+
+    if move_url != "":
+        url = BASE_URL + move_url
+        res = requests.put(url, json={}, verify=False)
+
+        if res.status_code == 200:
+            print("Policy '{0}' moved.".format(rule['name']))
+        else:
+            response_data = json.loads(res.text)
+            print("Error moving Policy: {0}".format(response_data.get('cli_error')))
+            return False
 
 
 def fgt_create_policy(rule, vdom, access_token):
@@ -118,17 +144,15 @@ def fgt_create_policy(rule, vdom, access_token):
     url = BASE_URL + "cmdb/firewall/policy?vdom={0}&access_token={1}".format(vdom, access_token)
     res = requests.post(url, json=payload, verify=False)
     if res.status_code == 200:
-        # If "after_policy" is set, move Policy
-        if isinstance(rule['after_policy'], int):
-            response_data = json.loads(res.text)
-            pol_id = response_data.get('mkey')
-            url = BASE_URL + "cmdb/firewall/policy/{0}?vdom={1}&action=move&after={2}&access_token={3}".format(pol_id, vdom, rule['after_policy'], access_token)
-            move_res = requests.put(url, json={}, verify=False)
-
         print("Policy '{0}' created.".format(rule['name']))
+
+        response_data = json.loads(res.text)
+        pol_id = response_data.get('mkey')
+        return pol_id
     else:
         response_data = json.loads(res.text)
         print("Error Adding Policy: {0}".format(response_data.get('cli_error')))
+        return False
 
 
 def fgt_create_service(srv_name, vdom, access_token):
