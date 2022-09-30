@@ -1,3 +1,35 @@
+""" Generate FortiGate NAT Object based on a comma separated txt file list
+
+This script generate FortiGate NAT CLI objects as output. Input is a comma
+separated txt file. on each line is a new object.
+The Input file need following format:
+<externalIP> <internalIP> <comment>
+(see description in the README file)
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+"""
+
+__author__ = "Andy Scherer"
+__contact__ = "ofee42@gmail.com"
+__copyright__ = "Copyright 2022, Andy Scherer"
+#__credits__ = ["None"]
+__date__ = "2022/09/13"
+__deprecated__ = False
+__email__ =  "ofee42@gmail.com"
+__license__ = "GPLv3"
+__maintainer__ = "developer"
+__status__ = "Development"
+__version__ = "0.0.1"
+
+
 import requests
 import json
 import urllib3
