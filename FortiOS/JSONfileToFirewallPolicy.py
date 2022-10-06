@@ -156,7 +156,12 @@ def fgt_create_policy(rule, vdom, access_token):
 
 
 def fgt_create_service(srv_name, vdom, access_token):
-    if "_" not in srv_name:
+
+    if srv_name in ["ALL", "Aebi_DefaultPorts"]:
+        print("INFO: Predefined Service: {0} - nothing to do".format(srv_name))
+        return
+
+    if "_" not in srv_name and pre_defined is False:
         # Maybe is a Service Group - exit
         print("Error: no _ in service {0} found - abort.").format(srv_name)
         return
@@ -166,7 +171,7 @@ def fgt_create_service(srv_name, vdom, access_token):
     proto = parts[0]
     port = parts[1]
 
-    if proto not in ['tcp', 'udp']:
+    if proto not in ['tcp', 'udp'] and pre_defined is False:
         print("Error: no TCP oder UDP Proto in Service {0} - abort.".format(srv_name))
         return
 
