@@ -57,8 +57,18 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-def test_port(dst_ips, fgt_port):
-    print("Start checking IPs...")
+ADMIN_PORTS = ["444"]
+
+
+def test_predefined():
+    ips = ["192.168.0.0/24"
+           ]
+
+    for ip in ips:
+        test_port(ip)
+
+
+def test_port(dst_ips):
     for ip in ipaddress.IPv4Network(dst_ips):
         str_ip = str(ip)
 
@@ -67,12 +77,13 @@ def test_port(dst_ips, fgt_port):
 
         # returns an error indicator
         print("Checking {0} ...".format(str_ip))
-        time.sleep(1)
-        result = s.connect_ex((str_ip, int(fgt_port)))
-        if result == 0:
-            print(f"{bcolors.FAIL}Port {fgt_port} at {str_ip} is open!{bcolors.ENDC}".format(fgt_port, str_ip))
 
-        s.close()
+        for port in ADMIN_PORTS:
+            result = s.connect_ex((str_ip, int(port)))
+            if result == 0:
+                print(f"{bcolors.FAIL}Port {port} at {str_ip} is open!{bcolors.ENDC}".format(port, str_ip))
+
+            s.close()
 
 
 def main():
@@ -81,12 +92,10 @@ def main():
     print(ascii_banner)
     print("-" * 50)
 
-    # Ask for needed informations
-    dst_ips = str(input('To Scan IPv4-Subnet (e.g. 192.168.0.0/24):'))
-    fgt_port = str(input('FortiGate Admin Port:'))
-
     # Do Port Check
-    test_port(dst_ips, fgt_port)
+    print("Start checking IPs...")
+
+    test_predefined()
 
 
 if __name__ == '__main__':
