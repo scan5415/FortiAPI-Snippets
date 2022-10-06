@@ -4,6 +4,10 @@ FortiGate Admin Web GUI. Actually, it can used for anything else.
 Enter IPv4-Address or IPv4-Subnet with CIDR Prefix notation.
 Currently, only IPv4 Addresses are supported.
 
+REQUIREMENTS:
+- pyfiglet
+
+
 (see description in the README file)
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -35,6 +39,7 @@ import socket
 ####################
 import pyfiglet
 import ipaddress
+import time
 import sys
 
 ####################
@@ -53,18 +58,20 @@ class bcolors:
 
 
 def test_port(dst_ips, fgt_port):
-
+    print("Start checking IPs...")
     for ip in ipaddress.IPv4Network(dst_ips):
         str_ip = str(ip)
-        target = socket.gethostbyname(str(ip))
+
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         socket.setdefaulttimeout(1)
 
         # returns an error indicator
-        print("Checking {0} ...".format(str_ip), end="\r")
+        print("Checking {0} ...".format(str_ip))
+        time.sleep(1)
         result = s.connect_ex((str_ip, int(fgt_port)))
         if result == 0:
             print(f"{bcolors.FAIL}Port {fgt_port} at {str_ip} is open!{bcolors.ENDC}".format(fgt_port, str_ip))
+
         s.close()
 
 
@@ -75,7 +82,7 @@ def main():
     print("-" * 50)
 
     # Ask for needed informations
-    dst_ips = str(input('To Scan IPv4-Subnet (e.g. 192.168.0.0/24:'))
+    dst_ips = str(input('To Scan IPv4-Subnet (e.g. 192.168.0.0/24):'))
     fgt_port = str(input('FortiGate Admin Port:'))
 
     # Do Port Check
