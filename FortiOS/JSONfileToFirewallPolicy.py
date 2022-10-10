@@ -42,7 +42,6 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 BASE_URL = ""
 
-
 ####################
 # Functions
 ####################
@@ -64,6 +63,7 @@ def create_objects(json_file, access_token):
         if isinstance(rule['after_policy'], int) or isinstance(rule['before_policy'], int):
             # Move after
             fgt_move_policy(rule, rule_id,  access_token)
+
 
 def import_json():
     # Open JSON File from same folder
@@ -157,11 +157,11 @@ def fgt_create_policy(rule, vdom, access_token):
 
 def fgt_create_service(srv_name, vdom, access_token):
 
-    if srv_name in ["ALL", "Aebi_DefaultPorts"]:
+    if srv_name in ["ALL", "HTTP", "HTTPS", "Aebi_DefaultPorts"]:
         print("INFO: Predefined Service: {0} - nothing to do".format(srv_name))
         return
 
-    if "_" not in srv_name and pre_defined is False:
+    if "_" not in srv_name:
         # Maybe is a Service Group - exit
         print("Error: no _ in service {0} found - abort.").format(srv_name)
         return
@@ -171,7 +171,7 @@ def fgt_create_service(srv_name, vdom, access_token):
     proto = parts[0]
     port = parts[1]
 
-    if proto not in ['tcp', 'udp'] and pre_defined is False:
+    if proto not in ['tcp', 'udp']:
         print("Error: no TCP oder UDP Proto in Service {0} - abort.".format(srv_name))
         return
 
