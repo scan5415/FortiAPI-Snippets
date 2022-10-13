@@ -57,12 +57,12 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-ADMIN_PORTS = ["444"]
+ADMIN_PORTS = ["444", "844", "10000"]
 
 
 def test_predefined():
-    ips = ["192.168.0.0/24"
-           ]
+    ips = ["178.249.80.68",
+           "212.243.90.20"]
 
     for ip in ips:
         test_port(ip)

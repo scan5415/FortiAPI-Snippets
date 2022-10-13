@@ -41,6 +41,7 @@ import urllib3
 ####################
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 BASE_URL = ""
+PRE_DEFINED_SERVICES = ["ALL", "HTTP", "HTTPS", "Aebi_DefaultPorts", "MS-SQL"]
 
 ####################
 # Functions
@@ -157,7 +158,7 @@ def fgt_create_policy(rule, vdom, access_token):
 
 def fgt_create_service(srv_name, vdom, access_token):
 
-    if srv_name in ["ALL", "HTTP", "HTTPS", "Aebi_DefaultPorts"]:
+    if srv_name in PRE_DEFINED_SERVICES:
         print("INFO: Predefined Service: {0} - nothing to do".format(srv_name))
         return
 
