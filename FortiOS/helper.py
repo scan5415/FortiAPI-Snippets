@@ -39,3 +39,4 @@ class colors:
         blue = '\033[44m'
         purple = '\033[45m'
         cyan = '\033[46m'
+        lightgrey = '\033[47m'
