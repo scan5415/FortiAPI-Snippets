@@ -1,34 +1,21 @@
-name: Sync Bitbucket
+name: Sync UMB Gitlab
 on:
-  push:
-    branches:
-      - "master"
+  - push
+  - delete
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    name: Git Repo Sync
     steps:
-      - name: install rsync
-        run: sudo apt-get install -y rsync
-      - uses: actions/checkout@v3
-        with:
-          path: 'github'
-      - name: Checkout from Bitpucket
-        run: |
-          mkdir bitbucket
-          cd bitbucket
-          git init
-          git config --global user.name "$GITHUB_ACTOR"
-          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git remote add origin ${{ secrets.BITBUCKET_URL }}
-          git fetch
-          git checkout master
-          cd ..
-      - name: Copy files
-        run: rsync -avh --exclude '.git' github/ bitbucket/
-      - name: commit
-        run: |
-          cd bitbucket/
-          git add --all
-          git commit -m "Update from GitHub"
-          git push -u origin HEAD:master
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: wangchucheng/git-repo-sync@v0.1.0
+      with:
+        # Such as https://github.com/wangchucheng/git-repo-sync.git
+        target-url: ${{ secrets.TARGET_URL }}
+        # Such as wangchucheng
+        target-username: ${{ secrets.TARGET_USERNAME }}
+          # You can store token in your project's 'Setting > Secrets' and reference the name here. Such as ${{ secrets.ACCESS\_TOKEN }}
+        target-token: ${{ secrets.TARGET_TOKEN }}
