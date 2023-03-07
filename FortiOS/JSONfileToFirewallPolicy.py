@@ -26,7 +26,7 @@ __email__ = "ofee42@gmail.com"
 __license__ = "GPLv3"
 __maintainer__ = "developer"
 __status__ = "Development"
-__version__ = "0.2"
+__version__ = "1.0"
 
 ####################
 # Importer
@@ -41,7 +41,8 @@ import urllib3
 ####################
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 BASE_URL = ""
-PRE_DEFINED_SERVICES = ["ALL", "HTTP", "HTTPS", "Aebi_DefaultPorts", "MS-SQL"]
+PRE_DEFINED_SERVICES = ["ALL", "HTTP", "HTTPS", "Aebi_DefaultPorts", "MS-SQL", "ALL_ICMP", "NFS", "SMB", "FTP", "SSH",
+                        "ALL_TCP", "SAMBA", "DCE-RPC", "SNMP", "SMTP", "LDAP", "RDP", "DNS", "KERBEROS"]
 
 ####################
 # Functions
@@ -212,7 +213,7 @@ def fgt_create_address(ip, description, vdom, access_token):
         'name': name,
         'type': 'ipmask',
         'subnet': net,
-        'description': description
+        'comment': description
     }
 
     url = BASE_URL + "cmdb/firewall/address?vdom={0}&access_token={1}".format(vdom, access_token)
