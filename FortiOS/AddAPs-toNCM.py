@@ -49,7 +49,7 @@ def FortiGateAPI_logon(base_url):
     sess = requests.session()
 
     #Login request
-    payload = {'username' : 'fwadmin', 'secretkey' : '2UeJhxe5epfcf9Vqi3vS9bLnymKK3mde'}
+    payload = {'username' : '<firewllLogin>', 'secretkey' : '<firewallPassword>'}
     res = sess.post(url_login, json=payload, verify=False )
 
     # Read CSRFTOKEN and add it to the Header
@@ -126,11 +126,11 @@ def NCM_createNode(client,IPaddr,SNMPcommunity):
         print("DONE!")
 
 if __name__== '__main__':
-    base_url = "https://62.12.150.162:10000/api/v2/"
-    ncm_server = "sup-ncm-001.sdmz.umb.ch"
-    ncm_username = "api-write"
-    ncm_password = "Test12345678!"
-    ncm_community = "umbmonitoring"
+    base_url = "https://<FirewallIP>:10000/api/v2/"
+    ncm_server = "<NCM-Server>"
+    ncm_username = "<NCM-Username"
+    ncm_password = "<NCM-Password>"
+    ncm_community = "<NCM-SNMP-Community>"
 
     # Logon to FortiGate first
     session = FortiGateAPI_logon(base_url)
@@ -140,4 +140,3 @@ if __name__== '__main__':
 
     # Logon to NCM
     client = NCM_logon(ncm_server,ncm_username,ncm_password)
-    #NCM_createNode(client,"10.230.220.36",ncm_community)
